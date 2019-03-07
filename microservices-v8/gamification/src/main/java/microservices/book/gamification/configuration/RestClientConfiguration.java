@@ -6,14 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Configures the REST client in our application
+ * REST 클라이언트 설정
  */
 @Configuration
 public class RestClientConfiguration {
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
+  @Bean
+  public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    return builder.build();
+  }
 
 }

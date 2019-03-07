@@ -10,37 +10,34 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author moises.macero
- */
 public class EventHandlerTest {
 
-    private EventHandler eventHandler;
+  private EventHandler eventHandler;
 
-    @Mock
-    private GameService gameService;
+  @Mock
+  private GameService gameService;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        eventHandler = new EventHandler(gameService);
-    }
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+    eventHandler = new EventHandler(gameService);
+  }
 
-    @Test
-    public void multiplicationAttemptReceivedTest() {
-        // given
-        Long userId = 1L;
-        Long attemptId = 8L;
-        boolean correct = true;
-        GameStats gameStatsExpected = new GameStats();
-        MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attemptId, userId, correct);
-        given(gameService.newAttemptForUser(userId, attemptId, correct)).willReturn(gameStatsExpected);
+  @Test
+  public void multiplicationAttemptReceivedTest() {
+    // given
+    Long userId = 1L;
+    Long attemptId = 8L;
+    boolean correct = true;
+    GameStats gameStatsExpected = new GameStats();
+    MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attemptId, userId, correct);
+    given(gameService.newAttemptForUser(userId, attemptId, correct)).willReturn(gameStatsExpected);
 
-        // when
-        eventHandler.handleMultiplicationSolved(event);
+    // when
+    eventHandler.handleMultiplicationSolved(event);
 
-        // then
-        verify(gameService).newAttemptForUser(userId, attemptId, correct);
-    }
+    // then
+    verify(gameService).newAttemptForUser(userId, attemptId, correct);
+  }
 
 }

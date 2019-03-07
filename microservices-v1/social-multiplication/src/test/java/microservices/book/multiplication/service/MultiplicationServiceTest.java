@@ -16,23 +16,23 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 public class MultiplicationServiceTest {
 
-    @MockBean
-    private RandomGeneratorService randomGeneratorService;
+  @MockBean
+  private RandomGeneratorService randomGeneratorService;
 
-    @Autowired
-    private MultiplicationService multiplicationService;
+  @Autowired
+  private MultiplicationService multiplicationService;
 
-    @Test
-    public void createRandomMultiplicationTest() {
-        // given (our mocked Random Generator service will return first 50, then 30)
-        given(randomGeneratorService.generateRandomFactor()).willReturn(50, 30);
+  @Test
+  public void createRandomMultiplicationTest() {
+    // given (randomGeneratorService 가 처음에 50, 나중에 30을 반환하도록 설정)
+    given(randomGeneratorService.generateRandomFactor()).willReturn(50, 30);
 
-        // when
-        Multiplication multiplication = multiplicationService.createRandomMultiplication();
+    // when
+    Multiplication multiplication = multiplicationService.createRandomMultiplication();
 
-        // assert
-        assertThat(multiplication.getFactorA()).isEqualTo(50);
-        assertThat(multiplication.getFactorB()).isEqualTo(30);
-        assertThat(multiplication.getResult()).isEqualTo(1500);
-    }
+    // assert
+    assertThat(multiplication.getFactorA()).isEqualTo(50);
+    assertThat(multiplication.getFactorB()).isEqualTo(30);
+    assertThat(multiplication.getResult()).isEqualTo(1500);
+  }
 }

@@ -23,41 +23,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-/**
- * @author moises.macero
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserStatsController.class)
 public class UserStatsControllerTest {
 
-    @MockBean
-    private GameService gameService;
+  @MockBean
+  private GameService gameService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    private JacksonTester<GameStats> json;
+  private JacksonTester<GameStats> json;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void getUserStatsTest() throws Exception{
-        // given
-        GameStats gameStats = new GameStats(1L, 2000, Collections.singletonList(Badge.GOLD_MULTIPLICATOR));
-        given(gameService.retrieveStatsForUser(1L)).willReturn(gameStats);
+  @Test
+  public void getUserStatsTest() throws Exception {
+    // given
+    GameStats gameStats = new GameStats(1L, 2000, Collections.singletonList(Badge.GOLD_MULTIPLICATOR));
+    given(gameService.retrieveStatsForUser(1L)).willReturn(gameStats);
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/stats?userId=1")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            get("/stats?userId=1")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-                .isEqualTo(json.write(gameStats).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString())
+            .isEqualTo(json.write(gameStats).getJson());
+  }
 }

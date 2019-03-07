@@ -9,14 +9,14 @@ import java.util.List;
 @Service
 class LeaderBoardServiceImpl implements LeaderBoardService {
 
-    private ScoreCardRepository scoreCardRepository;
+  private ScoreCardRepository scoreCardRepository;
 
-    LeaderBoardServiceImpl(ScoreCardRepository scoreCardRepository) {
-        this.scoreCardRepository = scoreCardRepository;
-    }
+  LeaderBoardServiceImpl(ScoreCardRepository scoreCardRepository) {
+    this.scoreCardRepository = scoreCardRepository;
+  }
 
-    @Override
-    public List<LeaderBoardRow> getCurrentLeaderBoard() {
-        return scoreCardRepository.findFirst10();
-    }
+  @Override
+  public List<LeaderBoardRow> getCurrentLeaderBoard() {
+    return scoreCardRepository.findFirst10();
+  }
 }

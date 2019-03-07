@@ -1,26 +1,23 @@
 package microservices.book.testutils.beans;
 
-/**
- * @author moises.macero
- */
 public class AttemptResponse {
 
-    private boolean correct;
-    private long id;
-    private User user;
+  private boolean correct;
+  private long id;
+  private User user;
 
-    public AttemptResponse() {
-    }
+  public AttemptResponse() {
+  }
 
-    public boolean isCorrect() {
-        return correct;
-    }
+  public boolean isCorrect() {
+    return correct;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public User getUser() {
+    return user;
+  }
 }

@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Stores information to identify the user.
+ * 사용자 정보를 저장하는 클래스
  */
 @RequiredArgsConstructor
 @Getter
@@ -14,10 +14,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 public final class User {
 
-    private final String alias;
+  private final String alias;
 
-    // Empty constructor for JSON (de)serialization
-    protected User() {
-        alias = null;
-    }
+  // JSON (역)직렬화를 위한 빈 생성자
+  protected User() {
+    alias = null;
+  }
 }

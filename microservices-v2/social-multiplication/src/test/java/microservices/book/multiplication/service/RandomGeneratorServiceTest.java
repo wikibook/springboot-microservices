@@ -16,20 +16,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class RandomGeneratorServiceTest {
 
-    @Autowired
-    private RandomGeneratorService randomGeneratorService;
+  @Autowired
+  private RandomGeneratorService randomGeneratorService;
 
-    @Test
-    public void generateRandomFactorIsBetweenExpectedLimits() throws Exception {
-        // when a good sample of randomly generated factors is generated
-        List<Integer> randomFactors = IntStream.range(0, 1000)
-                .map(i -> randomGeneratorService.generateRandomFactor())
-                .boxed().collect(Collectors.toList());
+  @Test
+  public void generateRandomFactorIsBetweenExpectedLimits() throws Exception {
+    // 무작위 숫자를 생성
+    List<Integer> randomFactors = IntStream.range(0, 1000)
+            .map(i -> randomGeneratorService.generateRandomFactor())
+            .boxed().collect(Collectors.toList());
 
-        // then all of them should be between 11 and 100
-        // because we want a middle-complexity calculation
-        assertThat(randomFactors).containsOnlyElementsOf(IntStream.range(11, 100)
-                .boxed().collect(Collectors.toList()));
-    }
+    // 적당히 어려운 계산을 만들기 위해서
+    // 생성한 인수가 11~99 범위에 있는지 확인
+    assertThat(randomFactors).containsOnlyElementsOf(IntStream.range(11, 100)
+            .boxed().collect(Collectors.toList()));
+  }
 
 }

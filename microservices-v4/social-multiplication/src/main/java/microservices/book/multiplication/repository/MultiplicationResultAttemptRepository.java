@@ -6,13 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * This interface allow us to store and retrieve attempts
+ * 답안을 저장하고 조회하기 위한 인터페이스
  */
 public interface MultiplicationResultAttemptRepository
         extends CrudRepository<MultiplicationResultAttempt, Long> {
 
-    /**
-     * @return the latest 5 attempts for a given user, identified by their alias.
-     */
-    List<MultiplicationResultAttempt> findTop5ByUserAliasOrderByIdDesc(String userAlias);
+  /**
+   * @return 닉네임에 해당하는 사용자의 최근 답안 5개
+   */
+  List<MultiplicationResultAttempt> findTop5ByUserAliasOrderByIdDesc(String userAlias);
 }

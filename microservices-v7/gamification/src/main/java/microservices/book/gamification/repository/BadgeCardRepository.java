@@ -6,15 +6,16 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * Handles data operations with BadgeCards
+ * BadgeCard 데이터 작업 처리
  */
 public interface BadgeCardRepository extends CrudRepository<BadgeCard, Long> {
 
-    /**
-     * Retrieves all BadgeCards for a given user.
-     * @param userId the id of the user to look for BadgeCards
-     * @return the list of BadgeCards, sorted by most recent.
-     */
-    List<BadgeCard> findByUserIdOrderByBadgeTimestampDesc(final Long userId);
+  /**
+   * 주어진 사용자의 배지 카드를 모두 조회
+   *
+   * @param userId BadgeCard를 조회하고자 하는 사용자의 ID
+   * @return 최근 획득한 순으로 정렬된 BadgeCard 리스트
+   */
+  List<BadgeCard> findByUserIdOrderByBadgeTimestampDesc(final Long userId);
 
 }

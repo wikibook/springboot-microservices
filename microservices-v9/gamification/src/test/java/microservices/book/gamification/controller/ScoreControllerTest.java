@@ -20,41 +20,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-/**
- * @author moises.macero
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ScoreController.class)
 public class ScoreControllerTest {
 
-    @MockBean
-    private GameService gameService;
+  @MockBean
+  private GameService gameService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    private JacksonTester<ScoreCard> json;
+  private JacksonTester<ScoreCard> json;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void getScoreForAttemptTest() throws Exception {
-        // given
-        ScoreCard scoreCard = new ScoreCard(1L, 5L, 10L, System.currentTimeMillis(), 100);
-        given(gameService.getScoreForAttempt(10L)).willReturn(scoreCard);
+  @Test
+  public void getScoreForAttemptTest() throws Exception {
+    // given
+    ScoreCard scoreCard = new ScoreCard(1L, 5L, 10L, System.currentTimeMillis(), 100);
+    given(gameService.getScoreForAttempt(10L)).willReturn(scoreCard);
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/scores/10")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            get("/scores/10")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-                .isEqualTo(json.write(scoreCard).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString())
+            .isEqualTo(json.write(scoreCard).getJson());
+  }
 }

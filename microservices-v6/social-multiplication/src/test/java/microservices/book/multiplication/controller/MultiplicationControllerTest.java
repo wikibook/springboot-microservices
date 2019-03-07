@@ -24,36 +24,36 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(MultiplicationController.class)
 public class MultiplicationControllerTest {
 
-    @MockBean
-    private MultiplicationService multiplicationService;
+  @MockBean
+  private MultiplicationService multiplicationService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    // This object will be magically initialized by the initFields method below.
-    private JacksonTester<Multiplication> json;
+  // 이 객체는 initFields() 메소드를 이용해 자동으로 초기화
+  private JacksonTester<Multiplication> json;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void getRandomMultiplicationTest() throws Exception{
-        // given
-        given(multiplicationService.createRandomMultiplication())
-                .willReturn(new Multiplication(70, 20));
+  @Test
+  public void getRandomMultiplicationTest() throws Exception {
+    // given
+    given(multiplicationService.createRandomMultiplication())
+            .willReturn(new Multiplication(70, 20));
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/multiplications/random")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            get("/multiplications/random")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-                .isEqualTo(json.write(new Multiplication(70, 20)).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString())
+            .isEqualTo(json.write(new Multiplication(70, 20)).getJson());
+  }
 
 }

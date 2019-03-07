@@ -10,8 +10,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 public class GamificationApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GamificationApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(GamificationApplication.class, args);
+  }
 
 }

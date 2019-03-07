@@ -10,10 +10,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This object contains the result of one or many iterations of the game.
- * It may contain any combination of {@link ScoreCard} objects and {@link BadgeCard} objects.
- *
- * It can be used as a delta (as a single game iteration) or to represent the total amount of score / badges.
+ * 한 번 혹은 여러 번의 게임 결과를 포함하는 객체
+ * {@link ScoreCard} 객체와 {@link BadgeCard} 로 이루어짐
+ * 게임 한 번에 변경된 내용 또는 점수와 배지 전체를 나타낼 때 사용됨
  */
 @RequiredArgsConstructor
 @Getter
@@ -21,30 +20,31 @@ import java.util.List;
 @EqualsAndHashCode
 public final class GameStats {
 
-    private final Long userId;
-    private final int score;
-    private final List<Badge> badges;
+  private final Long userId;
+  private final int score;
+  private final List<Badge> badges;
 
-    // Empty constructor for JSON / JPA
-    public GameStats() {
-        this.userId = 0L;
-        this.score = 0;
-        this.badges = new ArrayList<>();
-    }
+  // JSON/JPA 를 위한 빈 생성자
+  public GameStats() {
+    this.userId = 0L;
+    this.score = 0;
+    this.badges = new ArrayList<>();
+  }
 
-    /**
-     * Factory method to build an empty instance (zero points and no badges)
-     * @param userId the user's id
-     * @return a {@link GameStats} object with zero score and no badges
-     */
-    public static GameStats emptyStats(final Long userId) {
-        return new GameStats(userId, 0, Collections.emptyList());
-    }
+  /**
+   * 빈 인스턴스(0점과 배지 없는 상태)를 만들기 위한 팩토리 메소드
+   *
+   * @param userId 사용자 ID
+   * @return {@link GameStats} 객체(0점과 배지 없는 상태)
+   */
+  public static GameStats emptyStats(final Long userId) {
+    return new GameStats(userId, 0, Collections.emptyList());
+  }
 
-    /**
-     * @return an unmodifiable view of the badge cards list
-     */
-    public List<Badge> getBadges() {
-        return Collections.unmodifiableList(badges);
-    }
+  /**
+   * @return 수정불가능한 배지 카드 리스트의 뷰
+   */
+  public List<Badge> getBadges() {
+    return Collections.unmodifiableList(badges);
+  }
 }

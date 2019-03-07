@@ -17,35 +17,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-/**
- * @author moises.macero
- */
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles = "test")
 @WebMvcTest(AdminController.class)
 public class AdminControllerEnabledTest {
 
-    @MockBean
-    private AdminService adminService;
+  @MockBean
+  private AdminService adminService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    /**
-     * This test checks that the controller is working as expected when
-     * the profile is set to test (see annotation in class declaration)
-     * @throws Exception if any error occurs
-     */
-    @Test
-    public void deleteDatabaseTest() throws Exception {
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                post("/multiplication/admin/delete-db")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+  /**
+   * 테스트 프로파일이 설정된 경우 컨트롤러가 예상한대로 동작하는지 확인하는 테스트
+   * (클래스 어노테이션 참고)
+   *
+   * @throws Exception 에러가 발생한 경우
+   */
+  @Test
+  public void deleteDatabaseTest() throws Exception {
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            post("/multiplication/admin/delete-db")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        verify(adminService).deleteDatabaseContents();
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    verify(adminService).deleteDatabaseContents();
+  }
 }

@@ -3,11 +3,11 @@ package microservices.book.gamification.client;
 import microservices.book.gamification.client.dto.MultiplicationResultAttempt;
 
 /**
- * This interface allows us to connect to the Multiplication microservice.
- * Note that it's agnostic to the way of communication.
+ * Multiplication 마이크로서비스와 연결하는 인터페이스
+ * 통신 방식은 상관 없음
  */
 public interface MultiplicationResultAttemptClient {
 
-    MultiplicationResultAttempt retrieveMultiplicationResultAttemptbyId(final Long multiplicationId);
+  MultiplicationResultAttempt retrieveMultiplicationResultAttemptById(final Long multiplicationId);
 
 }

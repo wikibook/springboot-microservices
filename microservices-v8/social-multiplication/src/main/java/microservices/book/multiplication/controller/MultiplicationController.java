@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This class implements a REST API for our Multiplication application.
+ * 곱셈 애플리케이션의 REST API 를 구현한 클래스
  */
 @Slf4j
 @RestController
 @RequestMapping("/multiplications")
 final class MultiplicationController {
 
-    private final MultiplicationService multiplicationService;
+  private final MultiplicationService multiplicationService;
 
-    private final int serverPort;
+  private final int serverPort;
 
-    @Autowired
-    public MultiplicationController(final MultiplicationService multiplicationService, @Value("${server.port}") int serverPort) {
-        this.multiplicationService = multiplicationService;
-        this.serverPort = serverPort;
-    }
+  @Autowired
+  public MultiplicationController(final MultiplicationService multiplicationService, @Value("${server.port}") int serverPort) {
+    this.multiplicationService = multiplicationService;
+    this.serverPort = serverPort;
+  }
 
-    @GetMapping("/random")
-    Multiplication getRandomMultiplication() {
-        log.info("Generating a random multiplication from server @ {}", serverPort);
-        return multiplicationService.createRandomMultiplication();
-    }
+  @GetMapping("/random")
+  Multiplication getRandomMultiplication() {
+    log.info("무작위 곱셈을 생성한 서버 @ {}", serverPort);
+    return multiplicationService.createRandomMultiplication();
+  }
 
 }

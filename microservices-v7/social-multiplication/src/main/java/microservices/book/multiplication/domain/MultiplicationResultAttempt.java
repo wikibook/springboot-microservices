@@ -8,8 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 /**
- * Identifies the attempt from a {@link User} to solve a
- * {@link Multiplication}.
+ * {@link User}가 {@link Multiplication}을 계산한 답안을 정의한 클래스
  */
 @RequiredArgsConstructor
 @Getter
@@ -18,27 +17,27 @@ import javax.persistence.*;
 @Entity
 public final class MultiplicationResultAttempt {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "USER_ID")
-    private final User user;
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "USER_ID")
+  private final User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "MULTIPLICATION_ID")
-    private final Multiplication multiplication;
-    private final int resultAttempt;
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "MULTIPLICATION_ID")
+  private final Multiplication multiplication;
+  private final int resultAttempt;
 
-    private final boolean correct;
+  private final boolean correct;
 
-    // Empty constructor for JSON/JPA
-    MultiplicationResultAttempt() {
-        user = null;
-        multiplication = null;
-        resultAttempt = -1;
-        correct = false;
-    }
+  // JSON/JPA 를 위한 빈 생성자
+  MultiplicationResultAttempt() {
+    user = null;
+    multiplication = null;
+    resultAttempt = -1;
+    correct = false;
+  }
 
 }

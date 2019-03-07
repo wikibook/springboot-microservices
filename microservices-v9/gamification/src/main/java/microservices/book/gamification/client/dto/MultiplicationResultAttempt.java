@@ -8,7 +8,7 @@ import lombok.ToString;
 import microservices.book.gamification.client.MultiplicationResultAttemptDeserializer;
 
 /**
- * Identifies the attempt from a user to solve a multiplication.
+ * User 가 Multiplication 을 계산한 답안을 정의한 클래스
  */
 @RequiredArgsConstructor
 @Getter
@@ -17,21 +17,21 @@ import microservices.book.gamification.client.MultiplicationResultAttemptDeseria
 @JsonDeserialize(using = MultiplicationResultAttemptDeserializer.class)
 public final class MultiplicationResultAttempt {
 
-    private final String userAlias;
+  private final String userAlias;
 
-    private final int multiplicationFactorA;
-    private final int multiplicationFactorB;
-    private final int resultAttempt;
+  private final int multiplicationFactorA;
+  private final int multiplicationFactorB;
+  private final int resultAttempt;
 
-    private final boolean correct;
+  private final boolean correct;
 
-    // Empty constructor for JSON/JPA
-    MultiplicationResultAttempt() {
-        userAlias = null;
-        multiplicationFactorA = -1;
-        multiplicationFactorB = -1;
-        resultAttempt = -1;
-        correct = false;
-    }
+  // JSON/JPA 를 위한 빈 생성자
+  MultiplicationResultAttempt() {
+    userAlias = null;
+    multiplicationFactorA = -1;
+    multiplicationFactorB = -1;
+    resultAttempt = -1;
+    correct = false;
+  }
 
 }

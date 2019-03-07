@@ -11,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * This class links a Badge to a User. Contains also a timestamp with the moment in which the user got it.
+ * 배지와 사용자를 연결하는 클래스
+ * 사용자가 배지를 획득한 순간의 타임스탬프를 포함
  */
 @RequiredArgsConstructor
 @Getter
@@ -20,22 +21,22 @@ import javax.persistence.Id;
 @Entity
 public final class BadgeCard {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "BADGE_ID")
-    private final Long badgeId;
+  @Id
+  @GeneratedValue
+  @Column(name = "BADGE_ID")
+  private final Long badgeId;
 
-    private final Long userId;
-    private final long badgeTimestamp;
-    private final Badge badge;
+  private final Long userId;
+  private final long badgeTimestamp;
+  private final Badge badge;
 
-    // Empty constructor for JSON / JPA
-    public BadgeCard() {
-        this(null, null, 0, null);
-    }
+  // JSON/JPA 를 위한 빈 생성자
+  public BadgeCard() {
+    this(null, null, 0, null);
+  }
 
-    public BadgeCard(final Long userId, final Badge badge) {
-        this(null, userId, System.currentTimeMillis(), badge);
-    }
+  public BadgeCard(final Long userId, final Badge badge) {
+    this(null, userId, System.currentTimeMillis(), badge);
+  }
 
 }

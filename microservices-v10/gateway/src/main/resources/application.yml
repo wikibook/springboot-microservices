@@ -30,20 +30,19 @@ zuul:
       serviceId: gamification
       strip-prefix: false
 
-endpoints:
-  routes:
-    sensitive: false
-  trace:
-    sensitive: false
+#endpoints:
+#  routes:
+#    sensitive: false
+#  trace:
+#    sensitive: false
 
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/
 
-
 ---
-# Adds admin routes for testing purposes
+# 테스트 목적의 관리자 경로 추가
 spring:
   profiles: test
 zuul:

@@ -7,21 +7,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author moises.macero
- */
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  public UserController(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
-    @GetMapping("/{userId}")
-    public User getUserById(@PathVariable("userId") final Long userId){
-        return userRepository.findOne(userId);
-    }
+  @GetMapping("/{userId}")
+  public User getUserById(@PathVariable("userId") final Long userId) {
+    return userRepository.findOne(userId);
+  }
 }

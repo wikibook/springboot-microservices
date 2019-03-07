@@ -27,39 +27,39 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
-    @MockBean
-    private UserRepository userRepository;
+  @MockBean
+  private UserRepository userRepository;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    // This object will be magically initialized by the initFields method below.
-    private JacksonTester<User> json;
+  // 이 객체는 initFields() 메소드를 이용해 자동으로 초기화
+  private JacksonTester<User> json;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void getUserByIdTest() throws Exception {
-        // given
-        long userId = 1;
-        String userAlias = "john";
-        // BOOT2: changed from findOne
-        given(userRepository.findById(userId))
-                .willReturn(Optional.of(new User(userId, userAlias)));
+  @Test
+  public void getUserByIdTest() throws Exception {
+    // given
+    long userId = 1;
+    String userAlias = "john";
+    // BOOT2: findOne 에서 변경
+    given(userRepository.findById(userId))
+            .willReturn(Optional.of(new User(userId, userAlias)));
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/users/" + userId)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            get("/users/" + userId)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-                .isEqualTo(json.write(new User(userId, userAlias)).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString())
+            .isEqualTo(json.write(new User(userId, userAlias)).getJson());
+  }
 
 }

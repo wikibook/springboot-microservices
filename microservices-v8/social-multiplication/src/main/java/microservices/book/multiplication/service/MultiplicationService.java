@@ -7,34 +7,32 @@ import java.util.List;
 
 public interface MultiplicationService {
 
-    /**
-     * Creates a Multiplication object with two randomly-generated factors
-     * between 11 and 99.
-     *
-     * @return a Multiplication object with random factors
-     */
-    Multiplication createRandomMultiplication();
+  /**
+   * 두 개의 무작위 인수(11~99)를 담은 {@link Multiplication} 객체를 생성
+   *
+   * @return 무작위 인수를 담은 {@link Multiplication} 객체
+   */
+  Multiplication createRandomMultiplication();
 
-    /**
-     * @return a {@link MultiplicationResultAttempt}, which contains information about the attempt and
-     * indicates if it's correct or not.
-     */
-    MultiplicationResultAttempt checkAttempt(final MultiplicationResultAttempt resultAttempt);
+  /**
+   * @return 답안과 정답 여부를 담은 {@link MultiplicationResultAttempt}
+   */
+  MultiplicationResultAttempt checkAttempt(final MultiplicationResultAttempt resultAttempt);
 
-    /**
-     * Gets the statistics for a given user.
-     *
-     * @param userAlias the user's alias
-     * @return a list of {@link MultiplicationResultAttempt} objects, being the past attempts of the user.
-     */
-    List<MultiplicationResultAttempt> getStatsForUser(final String userAlias);
+  /**
+   * 해당 사용자의 통계 정보를 조회한다.
+   *
+   * @param userAlias는 해당 사용자의 닉네임
+   * @return 해당 사용자가 전에 제출한 답안 객체 {@link MultiplicationResultAttempt}의 리스트
+   */
+  List<MultiplicationResultAttempt> getStatsForUser(final String userAlias);
 
-    /**
-     * Gets an attempt by its id
-     *
-     * @param resultId the identifier of the attempt
-     * @return the {@link MultiplicationResultAttempt} object matching the id, otherwise null.
-     */
-    MultiplicationResultAttempt getResultById(final Long resultId);
+  /**
+   * ID에 해당하는 답안 조회
+   *
+   * @param resultId 답안의 식별자
+   * @return ID에 해당하는 {@link MultiplicationResultAttempt} 객체, 없으면 null
+   */
+  MultiplicationResultAttempt getResultById(final Long resultId);
 
 }

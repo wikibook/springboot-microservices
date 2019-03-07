@@ -18,7 +18,7 @@
         </plugins>
     </build>
     <name>tests-e2e-v10</name>
-    <description>End to End tests - Microservices - The Practical Way (Book)</description>
+    <description>소셜 곱셈 애플리케이션 - 엔드투엔드 테스트 (도서 스프링 부트로 배우는 마이크로서비스)</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,7 +66,7 @@
             <version>3.8.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- the core, which includes Streaming API, shared low-level abstractions (but NOT data-binding) -->
+        <!-- 스트리밍 API를 포함한 코어는 저수준 추상화를 공유함 (하지만 데이터 바인딩은 하지 않음) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>

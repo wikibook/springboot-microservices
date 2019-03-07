@@ -1,43 +1,41 @@
-Feature: Users are able to send their multiplication
-  attempts, which may be correct or not. When users
-  send a correct attempt, they get a response indicating
-  that the result is the right one. Also, they get points
-  and potentially some badges when they are right, so they
-  get motivation to come back and keep playing. Badges are
-  won for the first right attempt and when the user gets 100,
-  500 and 999 points respectively. If users send a wrong
-  attempt, they don't get any point or badge.
+# language: ko
+기능: 사용자는 정답일 수도 있고 오답일 수도 있는 곱셈 답안을 제출할 수 있다.
+  사용자가 정답을 제출하면 결과가 정답임을 나타내는 응답을 받는다.
+  또한 점수를 받고 몇 가지 배지도 받을 수 있다.
+  따라서 재접속하고 계속 플레이할 수 있도록 동기부여가 된다.
+  배지는 첫 번째 정답을 맞출 때, 사용자가 100점, 500점, 999점을 획득할 때 각각 획득할 수 있다.
+  사용자가 오답을 제출하면 점수와 배지 모두 얻을 수 없다.
 
-  Scenario: The user sends a first right attempt and gets a badge
-    When the user john_snow sends 1 right attempts
-    Then the user gets a response indicating the attempt is right
-    And the user gets 10 points for the attempt
-    And the user gets the FIRST_WON badge
+  시나리오: 사용자가 첫 번째 정답 답안을 제출하고 배지를 얻는다
+    만약 사용자 철수가 1개의 정답 답안을 제출한다
+    그러면 사용자는 답안이 정답이라는 응답을 받는다
+    그리고 사용자는 10점을 얻는다
+    그리고 사용자는 FIRST_WON 배지를 얻는다
 
-  Scenario: The user sends a second right attempt and gets points only
-    Given the user john_snow sends 1 right attempts
-    And the user gets the FIRST_WON badge
-    When the user john_snow sends 1 right attempts
-    Then the user gets a response indicating the attempt is right
-    And the user gets 10 points for the attempt
-    And the user does not get any badge
+  시나리오: 사용자는 두 번째 정답 답안을 제출하고 포인트만 얻는다
+    먼저 사용자 철수가 1개의 정답 답안을 제출한다
+    그리고 사용자는 FIRST_WON 배지를 얻는다
+    만약 사용자 철수가 1개의 정답 답안을 제출한다
+    그러면 사용자는 답안이 정답이라는 응답을 받는다
+    그리고 사용자는 10점을 얻는다
+    그리고 사용자는 배지를 얻지 못한다
 
-  Scenario: The user sends a wrong attempt and gets nothing
-    When the user john_snow sends 1 wrong attempts
-    Then the user gets a response indicating the attempt is wrong
-    And the user gets 0 points for the attempt
-    And the user does not get any badge
+  시나리오: 사용자는 오답 답안을 제출하고 아무것도 얻지 못한다
+    만약 사용자 철수가 1개의 오답 답안을 제출한다
+    그러면 사용자는 답안이 오답이라는 응답을 받는다
+    그리고 사용자는 0점을 얻는다
+    그리고 사용자는 배지를 얻지 못한다
 
-  # Checks the Bronze, Silver and Gold badges
-  Scenario Outline: The user sends a right attempt after <previous_attempts> right attempts and then gets a badge <badge_name>
-    Given the user john_snow sends <previous_attempts> right attempts
-    When the user john_snow sends 1 right attempts
-    Then the user gets a response indicating the attempt is right
-    And the user gets 10 points for the attempt
-    And the user gets the <badge_name> badge
+  # 브론즈, 실버, 골드 배지 확인
+  시나리오 개요: <이전_답안> 정답을 제출한 이후에 사용자가 1개의 정답을 제출하고 <배지_이름> 배지를 얻는다.
+    먼저 사용자 철수가 <이전_답안>개의 정답 답안을 제출한다
+    만약 사용자 철수가 1개의 정답 답안을 제출한다
+    그러면 사용자는 답안이 정답이라는 응답을 받는다
+    그리고 사용자는 10점을 얻는다
+    그리고 사용자는 <배지_이름> 배지를 얻는다
 
-    Examples:
-      | previous_attempts | badge_name           |
-      | 9                 | BRONZE_MULTIPLICATOR |
-      | 49                | SILVER_MULTIPLICATOR |
-      | 99                | GOLD_MULTIPLICATOR   |
+    예:
+      | 이전_답안 | 배지_이름           |
+      | 9       | BRONZE_MULTIPLICATOR |
+      | 49      | SILVER_MULTIPLICATOR |
+      | 99      | GOLD_MULTIPLICATOR   |

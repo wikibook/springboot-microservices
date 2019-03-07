@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * This class provides a REST API to POST the attempts from users.
+ * 사용자가 POST 로 답안을 전송하도록 REST API 를 제공하는 클래스
  */
 @Slf4j
 @RestController
 @RequestMapping("/results")
 final class MultiplicationResultAttemptController {
 
-    private final MultiplicationService multiplicationService;
+  private final MultiplicationService multiplicationService;
 
-    private final int serverPort;
+  private final int serverPort;
 
-    @Autowired
-    MultiplicationResultAttemptController(
-            final MultiplicationService multiplicationService,
-            @Value("${server.port}") int serverPort) {
-        this.multiplicationService = multiplicationService;
-        this.serverPort = serverPort;
-    }
+  @Autowired
+  MultiplicationResultAttemptController(
+          final MultiplicationService multiplicationService,
+          @Value("${server.port}") int serverPort) {
+    this.multiplicationService = multiplicationService;
+    this.serverPort = serverPort;
+  }
 
-    @PostMapping
-    ResponseEntity<MultiplicationResultAttempt> postResult(@RequestBody MultiplicationResultAttempt multiplicationResultAttempt) {
-        return ResponseEntity.ok(multiplicationService.checkAttempt(multiplicationResultAttempt));
-    }
+  @PostMapping
+  ResponseEntity<MultiplicationResultAttempt> postResult(@RequestBody MultiplicationResultAttempt multiplicationResultAttempt) {
+    return ResponseEntity.ok(multiplicationService.checkAttempt(multiplicationResultAttempt));
+  }
 
-    @GetMapping
-    ResponseEntity<List<MultiplicationResultAttempt>> getStatistics(@RequestParam("alias") String alias) {
-        return ResponseEntity.ok(
-                multiplicationService.getStatsForUser(alias)
-        );
-    }
+  @GetMapping
+  ResponseEntity<List<MultiplicationResultAttempt>> getStatistics(@RequestParam("alias") String alias) {
+    return ResponseEntity.ok(
+            multiplicationService.getStatsForUser(alias)
+    );
+  }
 
-    @GetMapping("/{resultId}")
-    ResponseEntity<MultiplicationResultAttempt> getResultById(final @PathVariable("resultId") Long resultId) {
-        log.info("Retrieving result {} from server @ {}", resultId, serverPort);
-        return ResponseEntity.ok(
-                multiplicationService.getResultById(resultId)
-        );
-    }
+  @GetMapping("/{resultId}")
+  ResponseEntity<MultiplicationResultAttempt> getResultById(final @PathVariable("resultId") Long resultId) {
+    log.info("조회 결과 {} 조회한 서버 @ {}", resultId, serverPort);
+    return ResponseEntity.ok(
+            multiplicationService.getResultById(resultId)
+    );
+  }
 
 }

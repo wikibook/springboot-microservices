@@ -2,9 +2,9 @@ package microservices.book.multiplication.service;
 
 public interface RandomGeneratorService {
 
-    /**
-     * @return a randomly-generated factor. It's always a number between 11 and 99.
-     */
-    int generateRandomFactor();
+  /**
+   * @return 무작위로 생성한 11 이상 99 이하의 인수
+   */
+  int generateRandomFactor();
 
 }

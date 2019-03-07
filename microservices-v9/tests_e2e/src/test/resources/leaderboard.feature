@@ -1,17 +1,17 @@
-Feature: Users are listed from highest score to lowest, and when
-  they get points they can move up on the ranking.
+# language: ko
+기능: 사용자는 점수가 높은 순부터 낮은 순으로 목록에 올라 있다.
+  점수를 얻으면 순위가 올라갈 수 있다.
 
-  Scenario: A user sends a higher number of right attempts and
-  it's positioned at the first place in the ranking.
-    When the user john sends 2 right attempts
-    And the user peter sends 1 right attempts
-    Then the user john is the number 1 on the leaderboard
-    And the user peter is the number 2 on the leaderboard
+  시나리오: 사용자가 정답 답안을 더 많이 제출하고 1등이 된다.
+    만약 사용자 철수가 2개의 정답 답안을 제출한다
+    그리고 사용자 영희가 1개의 정답 답안을 제출한다
+    그러면 사용자 철수가 리더보드에서 1등이 된다
+    그리고 사용자 영희가 리더보드에서 2등이 된다
 
-  Scenario: A user passes another one when gets higher score.
-    Given the user john sends 3 right attempts
-    And the user peter sends 2 right attempts
-    And the user john is the number 1 on the leaderboard
-    When the user peter sends 2 right attempts
-    Then the user peter is the number 1 on the leaderboard
-    And the user john is the number 2 on the leaderboard
+  시나리오: 사용자는 더 높은 점수를 얻으면 다른 사용자를 등수를 앞지른다
+    먼저 사용자 철수가 3개의 정답 답안을 제출한다
+    그리고 사용자 영희가 2개의 정답 답안을 제출한다
+    그리고 사용자 철수가 리더보드에서 1등이 된다
+    만약 사용자 영희가 2개의 정답 답안을 제출한다
+    그러면 사용자 영희가 리더보드에서 1등이 된다
+    그리고 사용자 철수가 리더보드에서 2등이 된다

@@ -28,51 +28,51 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(MultiplicationResultAttemptController.class)
 public class MultiplicationResultAttemptControllerTest {
 
-    @MockBean
-    private MultiplicationService multiplicationService;
+  @MockBean
+  private MultiplicationService multiplicationService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    // This object will be magically initialized by the initFields method below.
-    private JacksonTester<MultiplicationResultAttempt> jsonResult;
-    private JacksonTester<ResultResponse> jsonResponse;
+  // 이 객체는 initFields() 메소드를 이용해 자동으로 초기화
+  private JacksonTester<MultiplicationResultAttempt> jsonResult;
+  private JacksonTester<ResultResponse> jsonResponse;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void postResultReturnCorrect() throws Exception {
-        genericParameterizedTest(true);
-    }
+  @Test
+  public void postResultReturnCorrect() throws Exception {
+    genericParameterizedTest(true);
+  }
 
-    @Test
-    public void postResultReturnNotCorrect() throws Exception {
-        genericParameterizedTest(false);
-    }
+  @Test
+  public void postResultReturnNotCorrect() throws Exception {
+    genericParameterizedTest(false);
+  }
 
-    void genericParameterizedTest(final boolean correct) throws Exception {
-        // given (remember we're not testing here the service itself)
-        given(multiplicationService
-                .checkAttempt(any(MultiplicationResultAttempt.class)))
-                .willReturn(correct);
-        User user = new User("john");
-        Multiplication multiplication = new Multiplication(50, 70);
-        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(
-                user, multiplication, 3500);
+  void genericParameterizedTest(final boolean correct) throws Exception {
+    // given (지금 서비스를 테스트하는 것이 아님)
+    given(multiplicationService
+            .checkAttempt(any(MultiplicationResultAttempt.class)))
+            .willReturn(correct);
+    User user = new User("john");
+    Multiplication multiplication = new Multiplication(50, 70);
+    MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(
+            user, multiplication, 3500);
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                post("/results").contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonResult.write(attempt).getJson()))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            post("/results").contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonResult.write(attempt).getJson()))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                jsonResponse.write(new ResultResponse(correct)).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString()).isEqualTo(
+            jsonResponse.write(new ResultResponse(correct)).getJson());
+  }
 
 }

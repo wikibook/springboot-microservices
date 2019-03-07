@@ -7,23 +7,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author moises.macero
- */
 @Profile("test")
 @RestController
 @RequestMapping("/multiplication/admin")
 public class AdminController {
 
-    private final AdminService adminService;
+  private final AdminService adminService;
 
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+  public AdminController(AdminService adminService) {
+    this.adminService = adminService;
+  }
 
-    @PostMapping("/delete-db")
-    public ResponseEntity deleteDatabase() {
-        adminService.deleteDatabaseContents();
-        return ResponseEntity.ok().build();
-    }
+  @PostMapping("/delete-db")
+  public ResponseEntity deleteDatabase() {
+    adminService.deleteDatabaseContents();
+    return ResponseEntity.ok().build();
+  }
 }

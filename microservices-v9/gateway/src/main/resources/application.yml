@@ -43,7 +43,7 @@ eureka:
 
 
 ---
-# Adds admin routes for testing purposes
+# 테스트 목적의 관리자 경로 추가
 spring:
   profiles: test
 zuul:

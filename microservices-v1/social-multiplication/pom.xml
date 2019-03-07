@@ -9,12 +9,12 @@
 	<packaging>jar</packaging>
 
 	<name>social-multiplication-v1</name>
-	<description>Social Multiplication App (Learn Microservices with Spring Boot)</description>
+	<description>소셜 곱셈 애플래키에션 (도서 스프링 부트로 배우는 마이크로서비스)</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.7.RELEASE</version>
+		<version>1.5.18.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 

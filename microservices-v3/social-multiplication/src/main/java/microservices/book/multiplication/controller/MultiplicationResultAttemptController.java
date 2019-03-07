@@ -13,30 +13,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This class provides a REST API to POST the attempts from users.
+ * 사용자가 POST 로 답안을 전송하도록 REST API 를 제공하는 클래스
  */
 @RestController
 @RequestMapping("/results")
 final class MultiplicationResultAttemptController {
 
-    private final MultiplicationService multiplicationService;
+  private final MultiplicationService multiplicationService;
 
-    @Autowired
-    MultiplicationResultAttemptController(final MultiplicationService multiplicationService) {
-        this.multiplicationService = multiplicationService;
-    }
+  @Autowired
+  MultiplicationResultAttemptController(final MultiplicationService multiplicationService) {
+    this.multiplicationService = multiplicationService;
+  }
 
-    @PostMapping
-    ResponseEntity<ResultResponse> postResult(@RequestBody MultiplicationResultAttempt multiplicationResultAttempt) {
-        return ResponseEntity.ok(
-                new ResultResponse(multiplicationService
-                        .checkAttempt(multiplicationResultAttempt)));
-    }
+  @PostMapping
+  ResponseEntity<ResultResponse> postResult(@RequestBody MultiplicationResultAttempt multiplicationResultAttempt) {
+    return ResponseEntity.ok(
+            new ResultResponse(multiplicationService
+                    .checkAttempt(multiplicationResultAttempt)));
+  }
 
-    @RequiredArgsConstructor
-    @NoArgsConstructor(force = true)
-    @Getter
-    static final class ResultResponse {
-        private final boolean correct;
-    }
+  @RequiredArgsConstructor
+  @NoArgsConstructor(force = true)
+  @Getter
+  static final class ResultResponse {
+    private final boolean correct;
+  }
 }

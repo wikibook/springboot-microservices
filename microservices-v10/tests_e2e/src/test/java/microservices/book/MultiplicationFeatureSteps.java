@@ -1,10 +1,10 @@
 package microservices.book;
 
 import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import microservices.book.testutils.beans.AttemptResponse;
+import cucumber.api.java.ko.그러면;
+import cucumber.api.java.ko.먼저;
 import microservices.book.testutils.MultiplicationApplication;
+import microservices.book.testutils.beans.AttemptResponse;
 import microservices.book.testutils.beans.Stats;
 
 import java.util.List;
@@ -12,97 +12,91 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author moises.macero
- */
 public class MultiplicationFeatureSteps {
 
-    private MultiplicationApplication app;
-    private AttemptResponse lastAttemptResponse;
-    private Stats lastStatsResponse;
+  private MultiplicationApplication app;
+  private AttemptResponse lastAttemptResponse;
+  private Stats lastStatsResponse;
 
-    public MultiplicationFeatureSteps() {
-        this.app = new MultiplicationApplication();
-    }
+  public MultiplicationFeatureSteps() {
+    this.app = new MultiplicationApplication();
+  }
 
-    @Before
-    public void cleanUp() {
-        app.deleteData();
-    }
+  @Before
+  public void cleanUp() {
+    app.deleteData();
+  }
 
-    @Given("^the user ([^\\s]+) sends (\\d+) ([^\\s]+) attempts")
-    public void the_user_sends_attempts(final String userAlias,
-                                        final int attempts,
-                                        final String rightOrWrong)
-                                                    throws Throwable {
-        int attemptsSent = IntStream.range(0, attempts)
-                .mapToObj(i -> app.sendAttempt(userAlias, 10, 10,
-                                                "right".equals(rightOrWrong) ?
-                                                        100 : 258))
-                // store last attempt for later use
-                .peek(response -> lastAttemptResponse = response)
-                .mapToInt(response -> response.isCorrect() ? 1 : 0)
-                .sum();
-        assertThat(attemptsSent).isEqualTo("right".equals(rightOrWrong) ? attempts : 0)
-                .withFailMessage("Error sending attempts to the application");
-    }
+  @먼저("^사용자 ([^\\s]+)가 (\\d+)개의 ([^\\s]+) 답안을 제출한다$")
+  public void 사용자가_정답을_제출한다(final String userAlias,
+                            final int attempts,
+                            final String rightOrWrong) throws Throwable {
+    int attemptsSent = IntStream.range(0, attempts)
+            .mapToObj(i -> app.sendAttempt(userAlias, 10, 10,
+                    "정답".equals(rightOrWrong) ? 100 : 258))
+            // 마지막 답안을 나중에 사용하도록 저장
+            .peek(response -> lastAttemptResponse = response)
+            .mapToInt(response -> response.isCorrect() ? 1 : 0)
+            .sum();
 
-    @Then("^the user gets a response indicating the attempt is ([^\\s]+)$")
-    public void the_user_gets_a_response_indicating_the_attempt_is(
-            final String rightOrWrong) throws Throwable {
-        assertThat(lastAttemptResponse.isCorrect())
-                .isEqualTo("right".equals(rightOrWrong))
-                .withFailMessage("Expecting a response with a "
-                        + rightOrWrong + " attempt");
-    }
+    assertThat(attemptsSent).isEqualTo("정답".equals(rightOrWrong) ? attempts : 0)
+            .withFailMessage("답안을 애플리케이션으로 전송 시 에러");
+  }
 
-    @Then("^the user gets (\\d+) points for the attempt$")
-    public void the_user_gets_points_for_the_attempt(
-            final int points) throws Throwable {
-        long attemptId = lastAttemptResponse.getId();
-        Thread.currentThread().sleep(2000);
-        int score = app.getScoreForAttempt(attemptId).getScore();
-        assertThat(score).isEqualTo(points);
-    }
+  @그러면("^사용자는 답안이 ([^\\s]+)이라는 응답을 받는다$")
+  public void 사용자는_응답을_받는다(final String rightOrWrong) throws Throwable {
+    assertThat(lastAttemptResponse.isCorrect())
+            .isEqualTo("정답".equals(rightOrWrong))
+            .withFailMessage("기대한 응답 "
+                    + rightOrWrong + " 답안");
+  }
 
-    @Then("^the user gets the ([^\\s]+) badge$")
-    public void the_user_gets_the_type_badge(
-            final String badgeType) throws Throwable {
-        long userId = lastAttemptResponse.getUser().getId();
-        Thread.currentThread().sleep(200);
-        lastStatsResponse = app.getStatsForUser(userId);
-        List<String> userBadges = lastStatsResponse.getBadges();
-        assertThat(userBadges).contains(badgeType);
-    }
+  @그러면("^사용자는 (\\d+)점을 얻는다$")
+  public void 사용자는_점수를_얻는다(final int points) throws Throwable {
+    long attemptId = lastAttemptResponse.getId();
+    Thread.currentThread().sleep(2000);
+    int score = app.getScoreForAttempt(attemptId).getScore();
+    assertThat(score).isEqualTo(points);
+  }
 
-    @Then("^the user does not get any badge$")
-    public void the_user_does_not_get_any_badge() throws Throwable {
-        long userId = lastAttemptResponse.getUser().getId();
-        Stats stats = app.getStatsForUser(userId);
-        List<String> userBadges = stats.getBadges();
-        if (stats.getScore() == 0) {
-            assertThat(stats.getBadges()).isNullOrEmpty();
-        } else {
-            assertThat(userBadges).isEqualTo(lastStatsResponse.getBadges());
-        }
-    }
+  @그러면("^사용자는 ([^\\s]+) 배지를 얻는다$")
+  public void 사용자는_배지를_얻는다(final String badgeType) throws Throwable {
+    long userId = lastAttemptResponse.getUser().getId();
+    Thread.currentThread().sleep(200);
+    lastStatsResponse = app.getStatsForUser(userId);
+    List<String> userBadges = lastStatsResponse.getBadges();
+    assertThat(userBadges).contains(badgeType);
+  }
 
-    @Given("^the user has (\\d+) points$")
-    public void the_user_has_points(final int points) throws Throwable {
-        long userId = lastAttemptResponse.getUser().getId();
-        int statPoints = app.getStatsForUser(userId).getScore();
-        assertThat(points).isEqualTo(statPoints);
+  @그러면("^사용자는 배지를 얻지 못한다$")
+  public void 사용자는_배지를_얻지_못한다() throws Throwable {
+    long userId = lastAttemptResponse.getUser().getId();
+    Stats stats = app.getStatsForUser(userId);
+    List<String> userBadges = stats.getBadges();
+    if (stats.getScore() == 0) {
+      assertThat(stats.getBadges()).isNullOrEmpty();
+    } else {
+      assertThat(userBadges).isEqualTo(lastStatsResponse.getBadges());
     }
+  }
 
-    public AttemptResponse getLastAttemptResponse() {
-        return lastAttemptResponse;
-    }
+  @먼저("^사용자는 (\\d+)점을 가지고 있다$")
+  public void 사용자는_점수를_가지고_있다(final int points) throws Throwable {
+    long userId = lastAttemptResponse.getUser().getId();
+    int statPoints = app.getStatsForUser(userId).getScore();
+    assertThat(points).isEqualTo(statPoints);
+  }
 
-    public Stats getLastStatsResponse() {
-        return lastStatsResponse;
-    }
+  public AttemptResponse getLastAttemptResponse() {
+    return lastAttemptResponse;
+  }
 
-    public MultiplicationApplication getApp() {
-        return app;
-    }
+  public Stats getLastStatsResponse() {
+    return lastStatsResponse;
+  }
+
+  public MultiplicationApplication getApp() {
+    return app;
+  }
+
 }

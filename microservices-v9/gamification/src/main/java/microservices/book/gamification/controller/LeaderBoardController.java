@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * This class implements a REST API for the Gamification LeaderBoard service.
+ * Gamification 리더보드 서비스의 REST API
  */
 @RestController
 @RequestMapping("/leaders")
 class LeaderBoardController {
 
-    private final LeaderBoardService leaderBoardService;
+  private final LeaderBoardService leaderBoardService;
 
-    public LeaderBoardController(final LeaderBoardService leaderBoardService) {
-        this.leaderBoardService = leaderBoardService;
-    }
+  public LeaderBoardController(final LeaderBoardService leaderBoardService) {
+    this.leaderBoardService = leaderBoardService;
+  }
 
-    @GetMapping
-    public List<LeaderBoardRow> getLeaderBoard() {
-        return leaderBoardService.getCurrentLeaderBoard();
-    }
+  @GetMapping
+  public List<LeaderBoardRow> getLeaderBoard() {
+    return leaderBoardService.getCurrentLeaderBoard();
+  }
 }

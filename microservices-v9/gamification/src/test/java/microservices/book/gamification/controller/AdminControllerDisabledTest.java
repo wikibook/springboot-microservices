@@ -16,35 +16,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-/**
- * @author moises.macero
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(AdminController.class)
 public class AdminControllerDisabledTest {
 
-    @MockBean
-    private AdminService adminService;
+  @MockBean
+  private AdminService adminService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    /**
-     * This test checks that the controller is NOT ACCESSIBLE
-     * when profile is not set to test
-     *
-     * @throws Exception if any error occurs
-     */
-    @Test
-    public void deleteDatabaseTest() throws Exception {
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                post("/gamification/admin/delete-db")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+  /**
+   * 프로파일이 테스트로 설정되지 않은 경우 컨트롤러가 NOT ACCESSIBLE 인지 확인하는 테스트
+   *
+   * @throws Exception 에러가 발생한 경우
+   */
+  @Test
+  public void deleteDatabaseTest() throws Exception {
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            post("/gamification/admin/delete-db")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        verifyZeroInteractions(adminService);
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+    verifyZeroInteractions(adminService);
+  }
 }

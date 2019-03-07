@@ -24,44 +24,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-/**
- * @author moises.macero
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(LeaderBoardController.class)
 public class LeaderBoardControllerTest {
 
-    @MockBean
-    private LeaderBoardService leaderBoardService;
+  @MockBean
+  private LeaderBoardService leaderBoardService;
 
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    private JacksonTester<List<LeaderBoardRow>> json;
+  private JacksonTester<List<LeaderBoardRow>> json;
 
-    @Before
-    public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
-    }
+  @Before
+  public void setup() {
+    JacksonTester.initFields(this, new ObjectMapper());
+  }
 
-    @Test
-    public void getLeaderBoardTest() throws Exception{
-        // given
-        LeaderBoardRow leaderBoardRow1 = new LeaderBoardRow(1L, 500L);
-        LeaderBoardRow leaderBoardRow2 = new LeaderBoardRow(2L, 400L);
-        List<LeaderBoardRow> leaderBoard = new ArrayList<>();
-        Collections.addAll(leaderBoard, leaderBoardRow1, leaderBoardRow2);
-        given(leaderBoardService.getCurrentLeaderBoard()).willReturn(leaderBoard);
+  @Test
+  public void getLeaderBoardTest() throws Exception {
+    // given
+    LeaderBoardRow leaderBoardRow1 = new LeaderBoardRow(1L, 500L);
+    LeaderBoardRow leaderBoardRow2 = new LeaderBoardRow(2L, 400L);
+    List<LeaderBoardRow> leaderBoard = new ArrayList<>();
+    Collections.addAll(leaderBoard, leaderBoardRow1, leaderBoardRow2);
+    given(leaderBoardService.getCurrentLeaderBoard()).willReturn(leaderBoard);
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/leaders")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+    // when
+    MockHttpServletResponse response = mvc.perform(
+            get("/leaders")
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-                .isEqualTo(json.write(leaderBoard).getJson());
-    }
+    // then
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    assertThat(response.getContentAsString())
+            .isEqualTo(json.write(leaderBoard).getJson());
+  }
 }
